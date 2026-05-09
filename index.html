@@ -1,0 +1,814 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Елена Лялькина — Маркетинг, Воронки, Аналитика</title>
+  
+   <!-- Подключаем структурные и спокойные шрифты -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+   <!-- Иконки Phosphor (очень тонкие, консалтинговые) -->
+   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+
+   <style>
+       :root {
+           /* Утвержденная палитра */
+           --warm-milk: #F3EFE7;       /* Основной фон */
+           --soft-white: #FAF9F6;      /* Карточки */
+           --ink-graphite: #202426;    /* Основной текст */
+           --deep-petrol: #12313A;     /* Тёмные блоки */
+           --stone-gray: #D8D2C6;      /* Линии и разделители */
+           --muted-teal: #3F9DA3;      /* Главный акцент (точечно) */
+           --dusty-blue: #496A78;      /* Вспомогательный холодный цвет */
+           --warm-clay: #A9785F;       /* Редкий тёплый акцент */
+          
+           --font-head: 'Manrope', sans-serif;
+           --font-body: 'Inter', sans-serif;
+          
+           --transition: all 0.3s ease;
+       }
+
+
+       * { margin: 0; padding: 0; box-sizing: border-box; }
+       html { scroll-behavior: smooth; }
+      
+       body {
+           font-family: var(--font-body);
+           color: var(--ink-graphite);
+           background-color: var(--warm-milk);
+           line-height: 1.6;
+           overflow-x: hidden;
+           font-weight: 400;
+           -webkit-font-smoothing: antialiased;
+       }
+
+
+       /* Спокойная типографика без кричащих размеров и больших отступов */
+       h1, h2, h3, h4 {
+           font-family: var(--font-head);
+           font-weight: 500;
+           line-height: 1.25;
+           color: var(--ink-graphite);
+       }
+
+
+       a { text-decoration: none; color: inherit; }
+       ul { list-style: none; }
+
+
+       /* Заголовки */
+       .title-xl { font-size: clamp(1.75rem, 3.5vw, 2.8rem); margin-bottom: 1.5rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; text-wrap: balance; }
+       .title-lg { font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 1rem; }
+       .title-md { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+       .subtitle { font-size: 1.1rem; font-weight: 400; margin-bottom: 2.5rem; color: var(--ink-graphite); opacity: 0.85; line-height: 1.6; max-width: 700px; }
+      
+       /* Акценты (дозированно) */
+       .accent-dot { color: var(--muted-teal); }
+       .accent-line { width: 40px; height: 1px; background-color: var(--muted-teal); margin-bottom: 1.5rem; display: block; }
+
+
+       /* Лейаут */
+       .container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+       section { padding: 7rem 0; border-bottom: 1px solid var(--stone-gray); }
+       section:last-child { border-bottom: none; }
+       .section-header { margin-bottom: 4rem; }
+
+
+       /* Навигация */
+       header {
+           position: fixed; top: 0; left: 0; right: 0; padding: 1.2rem 0;
+           background-color: rgba(243, 239, 231, 0.95);
+           backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+           z-index: 100; transition: var(--transition);
+           border-bottom: 1px solid transparent;
+       }
+       header.scrolled { padding: 1rem 0; border-bottom: 1px solid var(--stone-gray); }
+       .nav-container { display: flex; justify-content: space-between; align-items: center; }
+       .logo { font-family: var(--font-head); font-size: 1.1rem; font-weight: 600; color: var(--ink-graphite); display: flex; align-items: center; gap: 12px;}
+       .logo span { font-size: 0.85rem; font-family: var(--font-body); font-weight: 400; opacity: 0.7; border-left: 1px solid var(--stone-gray); padding-left: 12px; }
+
+
+       /* Кнопки (спокойные, без огромного letter-spacing) */
+       .btn {
+           display: inline-flex; align-items: center; justify-content: center;
+           padding: 1rem 2rem; font-size: 0.9rem; font-weight: 500;
+           cursor: pointer; transition: var(--transition); border-radius: 2px;
+           font-family: var(--font-body);
+       }
+       .btn-primary {
+           background-color: var(--deep-petrol); color: var(--soft-white);
+           border: 1px solid var(--deep-petrol);
+       }
+       .btn-primary:hover {
+           background-color: var(--ink-graphite); border-color: var(--ink-graphite);
+       }
+       .btn-outline {
+           background-color: transparent; color: var(--ink-graphite);
+           border: 1px solid var(--ink-graphite);
+       }
+       .btn-outline:hover {
+           background-color: var(--ink-graphite); color: var(--soft-white);
+       }
+
+
+       /* Главный экран */
+       .hero { min-height: 90vh; display: flex; align-items: center; padding-top: 100px; }
+       .hero-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center; }
+       .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+      
+       /* Схема на первом экране (Спокойная, структурная) */
+       .hero-visual {
+           display: flex; flex-direction: column; gap: 0.5rem;
+           padding: 3rem; background: var(--soft-white);
+           border: 1px solid var(--stone-gray);
+           position: relative;
+       }
+       .schema-flow { display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 2; }
+       .schema-item {
+           display: flex; align-items: center; gap: 1.5rem;
+           font-family: var(--font-head); font-weight: 500; font-size: 1.05rem;
+       }
+       .schema-item::before {
+           content: ''; width: 8px; height: 8px; background-color: var(--stone-gray); border-radius: 50%;
+       }
+       .schema-item.active { color: var(--deep-petrol); font-weight: 600; }
+       .schema-item.active::before { background-color: var(--muted-teal); }
+       .schema-line {
+           position: absolute; left: 3px; top: 10px; bottom: 10px;
+           width: 2px; background-color: var(--stone-gray); z-index: -1;
+       }
+       .schema-tags { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+       .schema-tag {
+           font-size: 0.75rem; color: var(--dusty-blue); border: 1px solid var(--stone-gray);
+           padding: 0.3rem 0.6rem; border-radius: 2px; background: transparent;
+       }
+
+
+       /* Архитектура роста */
+       .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+       .arch-card { padding-top: 1.5rem; border-top: 1px solid var(--stone-gray); position: relative; }
+       .arch-card::before {
+           content: ''; position: absolute; top: -1px; left: 0; width: 30px; height: 1px;
+           background-color: var(--muted-teal); transition: width 0.3s ease;
+       }
+       .arch-card:hover::before { width: 60px; }
+       .arch-num { font-family: var(--font-head); font-size: 1.25rem; color: var(--dusty-blue); margin-bottom: 1rem; display: block; }
+       .arch-card h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+       .arch-card p { font-size: 0.95rem; opacity: 0.85; }
+
+
+       /* В какой точке вы сейчас (Тёмный блок, petrol) */
+       .situations { background-color: var(--deep-petrol); color: var(--soft-white); border-bottom: none; }
+       .situations .title-lg { color: var(--soft-white); }
+       .situations .subtitle { color: var(--stone-gray); }
+       .sit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+       .sit-card {
+           padding: 2.5rem; background: rgba(250, 249, 246, 0.03);
+           border: 1px solid rgba(216, 210, 198, 0.1);
+       }
+       .sit-card h3 { color: var(--soft-white); font-size: 1.15rem; margin-bottom: 1rem; font-weight: 500;}
+       .sit-card p { color: var(--stone-gray); font-size: 0.95rem; opacity: 0.9; }
+
+
+       /* Что вы получите */
+       .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+       .deliv-card {
+           background-color: var(--soft-white); padding: 2.5rem;
+           border: 1px solid var(--stone-gray);
+       }
+       .deliv-card h3 { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; font-size: 1.15rem; }
+       .deliv-card h3 i { color: var(--muted-teal); font-size: 1.3rem; font-weight: 300; }
+       .deliv-card p { font-size: 0.95rem; opacity: 0.85; }
+
+
+       /* Кейсы */
+       .cases-grid { display: flex; flex-direction: column; gap: 3rem; }
+       .case-full {
+           display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+           background: var(--soft-white); border: 1px solid var(--stone-gray); padding: 3rem;
+       }
+       .case-half-wrapper { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+       .case-half {
+           background: var(--soft-white); border: 1px solid var(--stone-gray); padding: 2.5rem;
+           display: flex; flex-direction: column;
+       }
+      
+       .case-tag { font-size: 0.8rem; font-weight: 600; color: var(--dusty-blue); margin-bottom: 1rem; display: block; text-transform: uppercase;}
+       .case-title { font-size: 1.5rem; margin-bottom: 1.5rem; }
+       .case-metric { font-family: var(--font-head); font-size: 2.5rem; font-weight: 300; color: var(--deep-petrol); margin-bottom: 1.5rem; line-height: 1; }
+      
+       .case-block { margin-bottom: 1.5rem; }
+       .case-label { font-size: 0.8rem; font-weight: 600; color: var(--dusty-blue); margin-bottom: 0.3rem; text-transform: uppercase; }
+       .case-text { font-size: 0.95rem; opacity: 0.85; }
+      
+       .case-result-box { background: var(--warm-milk); padding: 1.5rem; border: 1px solid var(--stone-gray); margin-top: 1.5rem; }
+       .case-result-box ul { margin-top: 0.5rem; font-size: 0.95rem; }
+       .case-result-box li { margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px;}
+       .case-result-box li::before { content: '·'; color: var(--muted-teal); font-weight: bold; }
+      
+       .case-conclusion { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--stone-gray); font-size: 0.95rem; font-style: italic; opacity: 0.9; }
+
+
+       /* Ниши (бегущая строка / список) */
+       .niches-section { padding: 4rem 0; background-color: var(--deep-petrol); color: var(--stone-gray); text-align: center; border: none; }
+       .niches-section .title-lg { color: var(--soft-white); margin-bottom: 1rem;}
+       .niches-list { font-size: 1rem; line-height: 2; margin-top: 2rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+       .niches-list span { display: inline-block; }
+       .niches-list span::after { content: '·'; margin: 0 12px; color: var(--muted-teal); opacity: 0.5; }
+       .niches-list span:last-child::after { display: none; }
+
+
+       /* Обо мне */
+       .about-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
+       .about-photo-wrapper { position: relative; }
+       .about-photo {
+           aspect-ratio: 3/4; background-color: var(--stone-gray);
+           display: flex; align-items: center; justify-content: center;
+           position: relative; z-index: 2;
+       }
+       .about-photo-wrapper::after {
+           content: ''; position: absolute; left: 15px; top: 15px;
+           width: 100%; height: 100%; border: 1px solid var(--dusty-blue); z-index: 1;
+       }
+       .photo-placeholder { color: var(--dusty-blue); font-size: 0.85rem; }
+       .about-content h2 { font-size: 2rem; margin-bottom: 1.5rem; }
+       .about-content p { font-size: 1.05rem; opacity: 0.85; margin-bottom: 1.5rem; }
+       .competencies { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--stone-gray); }
+       .comp-item { font-size: 0.95rem; font-weight: 500; display: flex; align-items: flex-start; gap: 10px; }
+       .comp-item i { color: var(--dusty-blue); font-size: 1.2rem; margin-top: 2px;}
+
+
+       /* Как строится работа (Таймлайн) */
+       .process-list { max-width: 800px; position: relative; padding-left: 2rem; }
+       .process-list::before {
+           content: ''; position: absolute; left: 4px; top: 10px; bottom: 10px;
+           width: 1px; background-color: var(--stone-gray);
+       }
+       .process-item { position: relative; margin-bottom: 3rem; }
+       .process-item:last-child { margin-bottom: 0; }
+       .process-item::before {
+           content: ''; position: absolute; left: -2rem; top: 8px; width: 9px; height: 9px;
+           background-color: var(--warm-milk); border: 2px solid var(--dusty-blue); border-radius: 50%;
+       }
+       .process-item:hover::before { border-color: var(--muted-teal); background-color: var(--muted-teal); }
+       .process-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+       .process-item p { font-size: 0.95rem; opacity: 0.85; }
+
+
+       /* Кому это подойдет */
+       .target-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+       .target-card {
+           padding: 2.5rem; background: var(--soft-white);
+           border: 1px solid var(--stone-gray);
+           border-top: 3px solid var(--warm-clay); /* Тонкий теплый акцент */
+       }
+       .target-card h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+       .target-card p { font-size: 0.95rem; opacity: 0.85; }
+
+
+       /* Реклама — это не только заявки (Новый блок) */
+       .philosophy-section { background-color: var(--soft-white); border-top: 1px solid var(--stone-gray); }
+       .phil-header { max-width: 800px; margin-bottom: 2.5rem; }
+       .phil-header p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 1rem; line-height: 1.6; }
+      
+       .funnel-wrapper {
+           background: var(--warm-milk); padding: 2.5rem;
+           border: 1px solid var(--stone-gray); margin-bottom: 2.5rem;
+       }
+       .funnel-label {
+           font-family: var(--font-head); font-size: 1.1rem; font-weight: 600;
+           color: var(--deep-petrol); margin-bottom: 1.5rem; display: block;
+       }
+       .funnel-chain {
+           display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+           font-size: 0.95rem; font-weight: 500;
+       }
+       .funnel-step {
+           padding: 0.6rem 1.2rem; border: 1px solid var(--stone-gray);
+           background: var(--soft-white); color: var(--ink-graphite);
+       }
+       .funnel-step.final {
+           border-color: var(--deep-petrol); color: var(--deep-petrol); font-weight: 600;
+       }
+       .funnel-arrow { color: var(--muted-teal); font-size: 1.2rem; }
+      
+       .funnel-insight {
+           font-size: 0.95rem; opacity: 0.85; margin-top: 2rem; padding-top: 1.5rem;
+           border-top: 1px solid var(--stone-gray);
+       }
+
+
+       .phil-summary { max-width: 800px; margin-bottom: 3.5rem; font-size: 1.05rem; opacity: 0.85; line-height: 1.6; }
+
+
+       .phil-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+       .phil-card { padding-top: 1.5rem; border-top: 1px solid var(--stone-gray); position: relative; }
+       .phil-card::before { content: ''; position: absolute; top: -1px; left: 0; width: 25px; height: 1px; background-color: var(--muted-teal); }
+       .phil-card-num { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--dusty-blue); margin-bottom: 0.8rem; display: block; }
+       .phil-card h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+       .phil-card p { font-size: 0.95rem; opacity: 0.85; }
+
+
+       /* CTA Блок */
+       .cta-section { text-align: center; background-color: var(--soft-white); }
+       .cta-section .title-lg { max-width: 1000px; margin: 0 auto 1.5rem; }
+       .cta-section .subtitle { margin: 0 auto 3rem; }
+       .cta-buttons { display: flex; gap: 1rem; justify-content: center; }
+
+
+       /* Футер */
+       footer { padding: 3rem 0; background-color: var(--deep-petrol); color: var(--stone-gray); font-size: 0.9rem; }
+       .footer-container { display: flex; justify-content: space-between; align-items: center; }
+       .footer-links { display: flex; gap: 2rem; }
+       .footer-links a { color: var(--soft-white); transition: var(--transition); }
+       .footer-links a:hover { color: var(--muted-teal); }
+
+
+       /* Адаптив */
+       @media (max-width: 992px) {
+           .hero-layout, .about-layout, .case-full { grid-template-columns: 1fr; }
+           .hero-visual { display: none; }
+           .arch-grid, .sit-grid, .target-grid, .case-half-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+           .competencies { grid-template-columns: 1fr; }
+           .phil-cards { grid-template-columns: repeat(2, 1fr); }
+       }
+       @media (max-width: 768px) {
+           .container { padding: 0 1.25rem; }
+           section { padding: 5rem 0; }
+           .hero { padding-top: 120px; }
+           .cta-buttons { flex-direction: column; }
+           .footer-container { flex-direction: column; gap: 1.5rem; text-align: center; }
+           .phil-cards { grid-template-columns: 1fr; }
+           .funnel-chain { gap: 0.5rem; }
+           .funnel-step { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+       }
+.about-photo {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.about-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+
+   </style>
+</head>
+<body>
+
+
+   <header id="header">
+       <div class="container nav-container">
+           <div class="logo">
+               Елена Лялькина <span>Маркетинг · Воронки · Аналитика</span>
+           </div>
+           <a href="https://t.me/Alena_Pesh" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;">Обсудить проект</a>
+       </div>
+   </header>
+
+
+   <section class="hero">
+       <div class="container hero-layout">
+           <div class="hero-content">
+               <span class="accent-line"></span>
+               <h1 class="title-xl">Маркетинг, который связывает продукт, воронку и продажи</h1>
+               <p class="subtitle">Помогаю экспертам и бизнесам разобраться, какие связки реально приводят клиентов, где теряется бюджет и что мешает рекламе окупаться.</p>
+               <div class="hero-actions">
+                   <a href="https://t.me/Alena_Pesh" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Обсудить проект</a>
+                   <a href="#process" class="btn btn-outline">Посмотреть подход</a>
+               </div>
+           </div>
+           <div class="hero-visual">
+               <div class="schema-flow">
+                   <div class="schema-line"></div>
+                   <div class="schema-item">Продукт</div>
+                   <div class="schema-item">Аудитория</div>
+                   <div class="schema-item">Смыслы</div>
+                   <div class="schema-item active">Воронка</div>
+                   <div class="schema-item active">Реклама</div>
+                   <div class="schema-item active">Аналитика</div>
+                   <div class="schema-item">Рост</div>
+               </div>
+               <div class="schema-tags">
+                   <span class="schema-tag">CPL</span>
+                   <span class="schema-tag">ROAS</span>
+                   <span class="schema-tag">гипотезы</span>
+                   <span class="schema-tag">связки</span>
+                   <span class="schema-tag">точки потерь</span>
+                   <span class="schema-tag">отчётность</span>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section class="philosophy-section">
+       <div class="container">
+           <div class="phil-header">
+               <h2 class="title-lg">Реклама — это не только заявки</h2>
+               <p>Дешёвый лид не всегда приводит к продаже. Хороший CTR не всегда означает, что реклама работает. А заявки в Direct сами по себе ещё не показывают, зарабатывает ли проект.</p>
+           </div>
+          
+           <div class="funnel-wrapper">
+               <span class="funnel-label">Я оцениваю всю цепочку:</span>
+               <div class="funnel-chain">
+                   <div class="funnel-step">Показ</div>
+                   <i class="ph-light ph-arrow-right funnel-arrow"></i>
+                   <div class="funnel-step">Клик</div>
+                   <i class="ph-light ph-arrow-right funnel-arrow"></i>
+                   <div class="funnel-step">Заявка</div>
+                   <i class="ph-light ph-arrow-right funnel-arrow"></i>
+                   <div class="funnel-step">Диалог</div>
+                   <i class="ph-light ph-arrow-right funnel-arrow"></i>
+                   <div class="funnel-step">Консультация / бронь / заказ</div>
+                   <i class="ph-light ph-arrow-right funnel-arrow"></i>
+                   <div class="funnel-step final">Оплата</div>
+               </div>
+               <div class="funnel-insight">
+                   Так становится понятно, где именно теряется результат: в оффере, креативе, посадочной странице, Instagram-профиле, обработке заявок, доверии к бренду или аналитике.
+               </div>
+           </div>
+
+
+           <div class="phil-summary">
+               <p>В работе я ищу не “самую дешёвую заявку”, а связки, которые действительно приводят клиентов и дают понятные решения: что отключить, что усилить и куда дальше направлять бюджет.</p>
+           </div>
+
+
+           <div class="phil-cards">
+               <div class="phil-card">
+                   <span class="phil-card-num">1.</span>
+                   <h3>Качество заявок</h3>
+                   <p>Оцениваю, кто приходит с рекламы и есть ли у этих людей реальный интерес к покупке.</p>
+               </div>
+               <div class="phil-card">
+                   <span class="phil-card-num">2.</span>
+                   <h3>Путь после лида</h3>
+                   <p>Разбираю, что происходит после заявки: отвечает ли человек, доходит ли до консультации, брони, заказа или оплаты.</p>
+               </div>
+               <div class="phil-card">
+                   <span class="phil-card-num">3.</span>
+                   <h3>Точки потерь</h3>
+                   <p>Нахожу, где бюджет перестаёт работать: в оффере, креативе, воронке, переписке, доверии или аналитике.</p>
+               </div>
+               <div class="phil-card">
+                   <span class="phil-card-num">4.</span>
+                   <h3>Решения по запуску</h3>
+                   <p>После теста понятно, что отключить, что усилить, что проверить следующим и какие связки можно масштабировать.</p>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section id="process">
+       <div class="container">
+           <div class="section-header">
+               <h2 class="title-lg">Архитектура роста</h2>
+               <p class="subtitle">Работа начинается не с рекламного кабинета. Сначала нужно понять продукт, аудиторию, путь клиента и экономику запуска.</p>
+           </div>
+           <div class="arch-grid">
+               <div class="arch-card">
+                   <span class="arch-num">01 /</span>
+                   <h3>Исследую</h3>
+                   <p>Анализирую продукт, аудиторию, мотивы покупки, барьеры, конкурентов и текущую воронку. Никаких гипотез наугад — только данные из интервью, рекламной статистики и поведения клиентов.</p>
+               </div>
+               <div class="arch-card">
+                   <span class="arch-num">02 /</span>
+                   <h3>Проектирую</h3>
+                   <p>Формирую позиционирование, путь клиента, офферы, гипотезы и структуру запуска. Создаю логику, которая проводит человека от первого касания до заявки, консультации или покупки.</p>
+               </div>
+               <div class="arch-card">
+                   <span class="arch-num">03 /</span>
+                   <h3>Запускаю и оцифровываю</h3>
+                   <p>Настраиваю рекламу, подключаю аналитику и собираю прозрачную отчётность. Смотрю, какие связки дают результат, где теряется бюджет и какие этапы воронки нужно усилить.</p>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section class="situations">
+       <div class="container">
+           <div class="section-header">
+               <h2 class="title-lg">В какой точке вы сейчас?</h2>
+               <p class="subtitle">Инструменты подбираются под задачу, а не наоборот.</p>
+           </div>
+           <div class="sit-grid">
+               <div class="sit-card">
+                   <h3>Сильный продукт, но хаотичный маркетинг</h3>
+                   <p>Вы работаете по рекомендациям и “сарафанному радио”, но хотите перейти к управляемой системе привлечения клиентов. Нужен фундамент, понятная упаковка и безопасный выход в платный трафик.</p>
+               </div>
+               <div class="sit-card">
+                   <h3>Реклама запускалась, но нет ясности</h3>
+                   <p>Бюджет тратится, заявки есть или были, но непонятно, какие связки реально приводят клиентов и где теряется результат. Требуется аудит, аналитика и пересборка смыслов.</p>
+               </div>
+               <div class="sit-card">
+                   <h3>Система упёрлась в потолок</h3>
+                   <p>Есть продажи и опыт запусков, но для роста нужны более глубокая аналитика, автоматизация воронки, AI-инструменты и точное позиционирование.</p>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section>
+       <div class="container">
+           <div class="section-header">
+               <h2 class="title-lg">Что вы получите</h2>
+               <p class="subtitle">Не абстрактные метрики в рекламном кабинете, а конкретный бизнес-результат и управляемую инфраструктуру.</p>
+           </div>
+           <div class="deliverables-grid">
+               <div class="deliv-card">
+                   <h3><i class="ph-light ph-crosshair"></i> Ясность</h3>
+                   <p>Точное понимание, кто ваша аудитория, почему она покупает и какие смыслы действительно влияют на принятие решения.</p>
+               </div>
+               <div class="deliv-card">
+                   <h3><i class="ph-light ph-fingerprint"></i> Позиционирование</h3>
+                   <p>Формулировки, которые чётко отделяют вас от конкурентов и притягивают осознанных, платежеспособных клиентов.</p>
+               </div>
+               <div class="deliv-card">
+                   <h3><i class="ph-light ph-map-trifold"></i> Стратегию</h3>
+                   <p>Понятный пошаговый план запуска: что тестируем, в какой последовательности, на какую аудиторию, с каким бюджетом и по каким показателям оцениваем результат.</p>
+               </div>
+               <div class="deliv-card">
+                   <h3><i class="ph-light ph-megaphone"></i> Рекламу</h3>
+                   <p>Системный тест гипотез, креативов, аудиторий и поиск рабочих связок в Meta Ads, которые можно анализировать, усиливать и масштабировать.</p>
+               </div>
+               <div class="deliv-card">
+                   <h3><i class="ph-light ph-chart-bar"></i> Аналитику</h3>
+                   <p>Прозрачную отчётность, твёрдые цифры, логичные выводы и понимание, куда двигаться дальше на основе CPL, CPA, ROAS, ROI и качества заявок.</p>
+               </div>
+               <div class="deliv-card">
+                   <h3><i class="ph-light ph-sliders"></i> Оптимизацию</h3>
+                   <p>Снижение потерь рекламного бюджета и системное усиление каждого этапа воронки: от первого касания до заявки, консультации, оплаты или брони.</p>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section>
+       <div class="container">
+           <div class="section-header">
+               <h2 class="title-lg">Кейсы в цифрах</h2>
+               <p class="subtitle">В каждом проекте важна не только стоимость заявки, а вся цепочка: аудитория, оффер, креатив, путь клиента, обработка лидов и итоговая экономика.</p>
+           </div>
+          
+           <div class="cases-grid">
+               <!-- Крупный кейс 1 -->
+               <div class="case-full">
+                   <div>
+                       <span class="case-tag">Онлайн-школа продаж для экспертов</span>
+                       <h3 class="case-title">Аналитика и запуск с выручкой $31 240</h3>
+                      
+                       <div class="case-block">
+                           <div class="case-label">Что было сделано</div>
+                           <div class="case-text">Настроена аналитика с нуля: пиксель, API Conversion, события сайта и бота, UTM-метки и передача данных. Проанализирована воронка в боте, протестированы 53 гипотезы и 24 креатива в двух запусках.</div>
+                       </div>
+                      
+                       <div class="case-conclusion">
+                           Вывод: Прозрачная аналитика позволила увидеть путь клиента от клика до оплаты и определить, где воронку можно усилить дальше.
+                       </div>
+                   </div>
+                   <div>
+                       <div class="case-result-box">
+                           <div class="case-label">Результат в цифрах</div>
+                           <ul>
+                               <li>$6 172 рекламного бюджета</li>
+                               <li>1 280 регистраций</li>
+                               <li>$4,82 средняя стоимость лида</li>
+                               <li><strong>$31 240 сумма заказов</strong></li>
+                               <li>233% фактический ROAS / 506% прогнозируемый ROAS</li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+
+
+               <!-- 2 компактных кейса -->
+               <div class="case-half-wrapper">
+                   <div class="case-half">
+                       <span class="case-tag">Премиум тур</span>
+                       <h3 class="case-title" style="font-size: 1.25rem;">841% ROAS на тестовом бюджете</h3>
+                       <div class="case-block">
+                           <div class="case-label">Задача и действия</div>
+                           <div class="case-text">Продать 1–2 места при тестовом бюджете около €700. Протестированы 6 гипотез и 4 креатива. Запуск шёл на дорогие страны Европы и ОАЭ.</div>
+                       </div>
+                       <div class="case-result-box" style="margin-top: 1rem; padding: 1rem;">
+                           <ul>
+                               <li>€693 бюджета / 33 заявки</li>
+                               <li>1 оплата на €5 500 (841% ROAS)</li>
+                           </ul>
+                       </div>
+                       <div class="case-conclusion">Даже при небольшом бюджете можно получить качественные лиды на дорогой продукт, если точно собрать аудиторию.</div>
+                   </div>
+                  
+                   <div class="case-half">
+                       <span class="case-tag">Тату-мастер в Европе</span>
+                       <h3 class="case-title" style="font-size: 1.25rem;">65 записей в трёх городах</h3>
+                       <div class="case-block">
+                           <div class="case-label">Действия</div>
+                           <div class="case-text">Тестировали холодную и тёплую аудиторию, несколько воронок. Фокус был не просто на лидах, а на качестве запросов и доведении до записи.</div>
+                       </div>
+                       <div class="case-result-box" style="margin-top: 1rem; padding: 1rem;">
+                           <ul>
+                               <li>€2 459 бюджета / 103 квал. лида</li>
+                               <li>65 записей (€37,85 за запись)</li>
+                           </ul>
+                       </div>
+                       <div class="case-conclusion">Когда реклама оценивается по финальному действию, а не по количеству лидов, бюджет работает точнее.</div>
+                   </div>
+               </div>
+
+
+               <!-- 2 компактных кейса -->
+               <div class="case-half-wrapper">
+                   <div class="case-half">
+                       <span class="case-tag">Услуги гида</span>
+                       <h3 class="case-title" style="font-size: 1.25rem;">92 заявки и продажи в 1-й месяц</h3>
+                       <div class="case-block">
+                           <div class="case-label">Действия</div>
+                           <div class="case-text">Тестировались разные страны: Нидерланды, США, Дубай. Кампании работали на заявки и на рост аудитории бренда.</div>
+                       </div>
+                       <div class="case-result-box" style="margin-top: 1rem; padding: 1rem;">
+                           <ul>
+                               <li>€618 бюджета / 92 заявки</li>
+                               <li>3 экскурсии на €2 430 в первый месяц</li>
+                           </ul>
+                       </div>
+                       <div class="case-conclusion">Для продукта с длинным циклом сделки важно считать не только быстрые продажи, но и базу будущих клиентов.</div>
+                   </div>
+
+
+                   <div class="case-half">
+                       <span class="case-tag">Гипнотерапевт / мягкая ниша</span>
+                       <h3 class="case-title" style="font-size: 1.25rem;">От теста на €500 к €17 897 продаж</h3>
+                       <div class="case-block">
+                           <div class="case-label">Задача и действия</div>
+                           <div class="case-text">Найти платёжеспособный сегмент. Отключён креатив с дешевым лидом, приводивший нецелевую аудиторию. Фокус на качестве диагностик.</div>
+                       </div>
+                       <div class="case-result-box" style="margin-top: 1rem; padding: 1rem;">
+                           <ul>
+                               <li>€2 927 бюджета / 228 лидов</li>
+                               <li>11 клиентов / €17 897 продаж (611% ROAS)</li>
+                           </ul>
+                       </div>
+                       <div class="case-conclusion">Системный маркетинг — это не про самые дешёвые заявки, а про реальные продажи.</div>
+                   </div>
+               </div>
+
+
+           </div>
+       </div>
+   </section>
+
+
+   <section class="niches-section">
+       <div class="container">
+           <h2 class="title-lg">30+ ниш, где важны не просто клики, а путь клиента</h2>
+           <p class="subtitle" style="margin: 0 auto; color: var(--stone-gray);">Работала с проектами в Европе, США, ОАЭ и СНГ: от онлайн-школ и экспертов до туризма, премиальных услуг, локального бизнеса и сложных продуктов с длинным циклом сделки.</p>
+           <div class="niches-list">
+               <span>Онлайн-школы</span>
+               <span>эксперты</span>
+               <span>туризм</span>
+               <span>премиум-услуги</span>
+               <span>тату</span>
+               <span>бьюти</span>
+               <span>доставка</span>
+               <span>образование</span>
+               <span>спортивные кемпы</span>
+               <span>визовые услуги</span>
+               <span>локальный бизнес</span>
+               <span>B2B-направления</span>
+               <span>гипнотерапия</span>
+               <span>международ projects</span>
+           </div>
+       </div>
+   </section>
+
+
+   <section>
+       <div class="container about-layout">
+           <div class="about-photo-wrapper">
+    <div class="about-photo">
+        <img 
+            src="./assets/alena-photo.png" 
+            alt="Елена Лялькина" 
+            class="about-photo-img"
+        >
+    </div>
+</div>
+
+
+           <div class="about-content">
+               <span class="accent-line"></span>
+               <h2>Сначала — смысл и экономика. Потом — реклама.</h2>
+               <p>Я смотрю не только в рекламный кабинет, а на всю цепочку: продукт, аудиторию, посадочную страницу, воронку, обработку заявок, аналитику и деньги.</p>
+               <p>До маркетинга у меня был опыт в продажах и управлении банковским подразделением, поэтому я привыкла смотреть на рекламу не как на “креативы и лиды”, а как на инвестицию, которая должна быть понятной, измеримой и обоснованной.</p>
+               <p>Создаю решения, где каждый вложенный доллар имеет логику, а система привлечения клиентов работает предсказуемо и прозрачно.</p>
+              
+               <div class="competencies">
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> Meta Ads и платный трафик</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> Пиксели, события, GTM, CAPI</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> Проектирование воронок и CJM</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> JTBD и CustDev</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> Смысловая упаковка продукта</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> Аналитика, отчётность и ROI</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> AI-инструменты для оптимизации</div>
+                   <div class="comp-item"><i class="ph-light ph-check-circle"></i> Опыт в продажах и финансах</div>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section>
+       <div class="container">
+           <div class="section-header">
+               <h2 class="title-lg">Как строится работа</h2>
+               <p class="subtitle">Диагностика, гипотезы, запуск, цифры и решения.</p>
+           </div>
+           <div class="process-list">
+               <div class="process-item">
+                   <h3>Диагностика</h3>
+                   <p>Разбираю продукт, аудиторию, конкурентов, текущую воронку, посадочные страницы, рекламные кабинеты и технические вводные.</p>
+               </div>
+               <div class="process-item">
+                   <h3>Стратегия</h3>
+                   <p>Формирую гипотезы, офферы, аудитории, структуру кампаний, бюджет и показатели, по которым будем оценивать результат.</p>
+               </div>
+               <div class="process-item">
+                   <h3>Техническая подготовка</h3>
+                   <p>Проверяю рекламный кабинет, пиксель, события, UTM-метки, формы, посадочные страницы и передачу заявок.</p>
+               </div>
+               <div class="process-item">
+                   <h3>Запуск</h3>
+                   <p>Запускаю тестовые кампании, отслеживаю первые сигналы, проверяю качество трафика, заявок и корректность аналитики.</p>
+               </div>
+               <div class="process-item">
+                   <h3>Оптимизация</h3>
+                   <p>Смотрю, какие связки дают результат, что нужно отключить, что усилить, где теряется бюджет и какой следующий шаг будет самым логичным.</p>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section>
+       <div class="container">
+           <div class="section-header">
+               <h2 class="title-lg">Кому это подойдёт</h2>
+           </div>
+           <div class="target-grid">
+               <div class="target-card">
+                   <h3>Экспертам и онлайн-школам</h3>
+                   <p>Если нужно не просто запустить рекламу, а собрать понятную воронку, проверить спрос, усилить оффер и видеть цифры по пути клиента.</p>
+               </div>
+               <div class="target-card">
+                   <h3>Бизнесам с дорогим продуктом</h3>
+                   <p>Если важно привлекать не любые заявки, а людей, которые понимают ценность продукта и готовы платить за качество.</p>
+               </div>
+               <div class="target-card">
+                   <h3>Проектам, где реклама уже запускалась</h3>
+                   <p>Если бюджет тратился, но нет ясности: что работает, где теряются заявки и почему продажи не растут пропорционально вложениям.</p>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section id="cta" class="cta-section">
+       <div class="container">
+           <h2 class="title-lg">Хотите понять, что сейчас сдерживает&nbsp;рост?</h2>
+           <p class="subtitle">Разберу продукт, воронку и рекламу, чтобы найти ближайшие точки роста и понять, какие действия дадут больше эффекта.</p>
+           <div class="cta-buttons">
+               <a href="https://t.me/Alena_Pesh" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Обсудить проект</a>
+           </div>
+       </div>
+   </section>
+
+
+   <footer>
+       <div class="container footer-container">
+           <div>© 2024 Елена Лялькина. Маркетинг · Воронки · Аналитика</div>
+           <div class="footer-links" style="position: relative; z-index: 50;">
+               <a href="https://t.me/Alena_Pesh" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+               <a href="https://www.instagram.com/alena.lialkina/" target="_blank" rel="noopener noreferrer">Перейти в Instagram</a>
+           </div>
+       </div>
+   </footer>
+
+
+</body>
+</html>
